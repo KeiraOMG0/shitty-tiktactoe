@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <title>Tic-Tac-Toe</title>
+  <style>
+    table { border-collapse: collapse; margin: 20px auto; }
+    td { width: 60px; height: 60px; text-align: center; vertical-align: middle;
+         font-size: 2em; border: 1px solid #333; }
+    form { display: inline; }
+    .info { text-align: center; font-family: sans-serif; }
+    .flash { color: red; }
+  </style>
+</head>
+<body>
+  <div class="info">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash">
+          {% for m in messages %}{{ m }}<br>{% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    <p>You are: {{ your_symbol or 'Spectator' }}</p>
+    <p>Turn: {{ turn }}</p>
+    <p>Players: 
+      {% for ip, sym in players.items() %}
+        {{ sym }} = {{ ip }}{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+  </div>
+  <table>
+    {% for i in range(3) %}
+      <tr>
+        {% for j in range(3) %}
+          <td>
+            {% if board[i][j] %}
+              {{ board[i][j] }}
+            {% else %}
+              <form method="post">
+                <input type="hidden" name="cell" value="{{ i }},{{ j }}">
+                <button style="width:100%;height:100%;font-size:1em;">&nbsp;</button>
+              </form>
+            {% endif %}
+          </td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
+  <div class="info">
+    <a href="{{ url_for('reset') }}">Reset Game</a>
+  </div>
+</body>
+</html>
