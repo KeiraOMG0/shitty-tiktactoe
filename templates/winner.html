@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <title>Game Over</title>
+  <style>
+    body { 
+      background-color: #121212; 
+      color: #eee; 
+      font-family: sans-serif; 
+      text-align: center; 
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  {% if winner == "Draw" %}
+    <h1>It's a Draw!</h1>
+  {% else %}
+    <h1>Player {{ winner }} Wins!</h1>
+  {% endif %}
+  <br>
+  <a href="/reset" style="color:#4CAF50;">Play Again</a>
+</body>
+</html>
